@@ -1,6 +1,12 @@
 package com.java.test;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 数值计算和时间计算
@@ -53,9 +59,45 @@ public class NumberAndTime {
         System.out.println(bd1.compareTo(bd2) == 0);
 
     }
-    public static void main(String[] args) {
+
+    /**
+     * SimpleDateFormat
+     * 可以解析大于/等于它定义的时间精度  解析更精确的时间
+     * @throws Exception
+     */
+    private static void formatPrecision() throws Exception{
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");//注意MM是大写
+        String time_x = "2020-03-01 10:00:00";
+        String time = "2020-03";
+        System.out.println(sdf.parse(time_x));
+        System.out.println(sdf.parse(time ));
+    }
+
+    private static void threadSafety(){
+        //主要是SimpleDateFormat维护一个Calendar对象
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(
+                10,100,1,
+                TimeUnit.MINUTES,new LinkedBlockingDeque<>(1000));
+        while (true){
+            threadPoolExecutor.execute(()->{
+                String dateString ="2020-03-01 10:00:00";
+                try {
+                    Date parseDate = sdf.parse(dateString);
+                    String dateString2 = sdf.format(parseDate);
+                    System.out.println(dateString.equals(dateString2));
+                }catch (ParseException ex){
+                    ex.printStackTrace();
+                }
+            });
+        }
+
+    }
+    public static void main(String[] args) throws Exception {
 //        scaleProblem();
 //        divideProblem();
-        equalProblem();
+//        equalProblem();
+//        formatPrecision();
+        threadSafety();
     }
 }
