@@ -27,15 +27,26 @@ public class ForeachOptimize {
 //        }
 
         //嵌套迭代容器出现问题
-        for (Iterator<Integer> l = left.iterator();l.hasNext();){
-            for (Iterator<Integer> r = right.iterator();r.hasNext();){
-                System.out.println(l.next() * r.next());
-            }
-        }
+//        for (Iterator<Integer> l = left.iterator();l.hasNext();){
+//            for (Iterator<Integer> r = right.iterator();r.hasNext();){
+//                System.out.println(l.next() * r.next());
+//            }
+//        }
 
         //正确的用法，嵌套迭代
+//
+
+        //foreach循环
+        for (Integer l : left){
+            for (Integer r : right){
+                System.out.println(l*r);
+            }
+        }
     }
 
+    private static void square(int value){
+        System.out.println(value * value);
+    }
     public static void main(String[] args) {
         wrongIterator();
     }
