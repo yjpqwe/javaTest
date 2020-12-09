@@ -27,7 +27,8 @@ public class Worker extends BaseWork implements IBaseWorking,IExtraWorking{
     @Override
     public void config() {
         //定义自己的config
-        System.out.println();
+        System.out.println("火影忍者梦幻西游");
+
     }
 
     @Override
