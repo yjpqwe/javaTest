@@ -1,6 +1,7 @@
 import java.io.*;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -34,7 +35,7 @@ public class test {
             for (String string:strings){
                 if (string!=""){
                     System.out.println(string);
-                    out.write("Σ "+string+"\t");
+                    out.write("["+TitleString+"]"+" "+string+"\t");
                     if (collect.get(string)!=null&&collect.get(string).get(0)!=null){
                         out.write(collect.get(string).get(0).getContent()+"\t");
                     }
@@ -89,6 +90,10 @@ public class test {
 //            }
             out.close();
             System.out.println("文件创建成功！");
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("uuuu年MM月dd日 HH时mm分ss秒");
+            LocalDateTime now = LocalDateTime.now();
+            // 2022/06/03 13:04:48
+            System.out.println("创建时间："+dateTimeFormatter.format(now));
         } catch (IOException e) {
         }
 //        printTop(rssTemBeanList,0);
@@ -102,13 +107,17 @@ public class test {
         collect.toString();
         return rssTeamBeanList;
     }
-
+    static String TitleString = "";
     static public void printTop(RssTeamBean rssTeamBean,int i,String content,String mubuContent) {
             i++;
             integers.add(i);
+            if (integers.size()==1){
+                TitleString = rssTeamBean.getText();
+            }
             rssTeamBean.setId(integers.size());
+
             if (sameText.contains(rssTeamBean.getMubuText())){
-                rssTeamBean.setMubuText(rssTeamBean.getMubuText()+"(防重复标识符"+rssTeamBean.getId()+")");
+                rssTeamBean.setMubuText(rssTeamBean.getMubuText()+" ("+TitleString+"  防重复标识符 "+rssTeamBean.getId()+")");
             }
             sameText.add(rssTeamBean.getMubuText());
             String str = "";

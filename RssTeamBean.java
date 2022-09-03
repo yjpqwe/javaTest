@@ -1,5 +1,6 @@
 import java.util.List;
 
+
 public class RssTeamBean {
         /**
          * 分组标题

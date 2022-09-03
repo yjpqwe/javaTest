@@ -11,16 +11,16 @@ import java.net.URLDecoder;
 import java.util.*;
 
 
-public class testCopy {
+public class testCopymd {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        testCopy readXML = new testCopy();
+        testCopymd readXML = new testCopymd();
 //        System.out.println("请输入opml的完整路径");
 //        String s = sc.next();
         RssTeamBean rssTemBeanList = readXML.ReadRss("C:\\Users\\59292\\Desktop\\考研相关.opml");
         try {
-            BufferedWriter out = new BufferedWriter(new FileWriter("C:\\Users\\59292\\Desktop\\op.txt"));
+            BufferedWriter out = new BufferedWriter(new FileWriter("C:\\Users\\59292\\Desktop\\op.md"));
             printTop(out,rssTemBeanList,0);
             out.close();
             System.out.println("文件创建成功！");
@@ -36,7 +36,7 @@ public class testCopy {
                 System.out.print("#");
             }
             System.out.print(" ");
-//            System.out.println(rssTeamBean.getText());
+            System.out.println(rssTeamBean.getText());
             System.out.println(rssTeamBean.getMubuText());
 //            if (rssTeamBean.getImage()!=null){
 //                System.out.println(rssTeamBean.getImage());
@@ -53,11 +53,11 @@ public class testCopy {
     static public void printTop(BufferedWriter out,RssTeamBean rssTeamBean,int i) throws IOException {
         i++;
         if (rssTeamBean.getRssBeanList() != null) {
-            for (int j = 0; j < i; j++) {
+            for (int j = 0; j < (i-1); j++) {
                 out.write("#");
             }
             out.write(" ");
-//            System.out.println(rssTeamBean.getText());
+            System.out.println(rssTeamBean.getText());
             out.write(rssTeamBean.getMubuText());
             out.newLine();
 //            if (rssTeamBean.getImage()!=null){
